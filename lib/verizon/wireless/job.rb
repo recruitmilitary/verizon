@@ -1,6 +1,3 @@
-require 'open-uri'
-require 'ostruct'
-
 module Verizon
   module Wireless
 
@@ -19,7 +16,8 @@ module Verizon
                   :state => node.at("State_Province").text,
                   :zip => node.at("zip").text,
                   :country => node.at("Country").text,
-                  :description => node.at("JobText").text)
+                  :description => node.at("JobText").text,
+                  :category => node.at("Category").text)
         end
       end
     end
