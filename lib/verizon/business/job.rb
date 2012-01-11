@@ -14,7 +14,7 @@ module Verizon
           cells = node.search('td')
 
           url = cells[1].at('a').attr('href')
-          url =~ /jobid(\d+)-/
+          url =~ /jobid(\w+)-/
 
           Job.new(:title => cells[1].at('a').text,
                   :url => url,
