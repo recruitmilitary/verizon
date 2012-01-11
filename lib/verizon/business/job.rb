@@ -43,7 +43,7 @@ module Verizon
       end
 
       def description
-        document.at(".posResp p").text
+        document.at(".posResp").text
       rescue NoMethodError
         # no description
       end
