@@ -37,23 +37,31 @@ module Verizon
       end
 
       def location
-        document.at("input#location").attr('value').gsub(/,\s*/, ', ')
-      rescue NoMethodError
-        attempts ||= 0
-        attempts += 1
-        @document = nil
-        sleep 2
-        retry unless attempts > 3
+        retryable {
+          document.at("input#location").attr('value').gsub(/,\s*/, ', ')
+        }
       end
 
       def description
-        document.at(".posResp p").text
+        retryable {
+          document.at(".posResp p").text
+        }
       end
 
       private
 
       def document
         @document ||= self.class.get(url)
+      end
+
+      def retryable
+        yield
+      rescue NoMethodError
+        attempts ||= 0
+        attempts += 1
+        @document = nil
+        sleep 2
+        retry unless attempts > 3
       end
     end
 
