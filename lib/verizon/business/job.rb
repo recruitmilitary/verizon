@@ -38,6 +38,12 @@ module Verizon
 
       def location
         document.at("input#location").attr('value').gsub(/,\s*/, ', ')
+      rescue NoMethodError
+        attempts ||= 0
+        attempts += 1
+        @document = nil
+        sleep 2
+        retry unless attempts > 3
       end
 
       def description
