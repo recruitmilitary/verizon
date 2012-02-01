@@ -24,7 +24,7 @@ module Verizon
       end
 
       def self.get(url)
-        uri = URI.parse(url)
+        uri = URI.parse(URI.encode(url))
 
         req = Net::HTTP::Get.new(uri.path)
         req.add_field('User-Agent', 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)')
@@ -43,7 +43,7 @@ module Verizon
       end
 
       def description
-        document.at(".posResp").text
+        document.at(".posResp").text.strip
       rescue NoMethodError
         # no description
       end
